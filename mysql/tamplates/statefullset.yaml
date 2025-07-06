@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: expense
+  labels:
+    project: expense
+    tier: database
+    component: mysql
+spec: 
+  replicas: 2
+  serviceName: mysql-headless # head leass service
+  minReadySeconds: 10
+  selector:
+    matchLabels:  
+      tier: database
+      component: mysql
+   # Instead of creating a PVC resource, you can directly provide in statefulset
+  volumeclaimTemplates:
+  - metadata:
+      name: mysql-pvc
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: mysql-sc 
+      resources:
+        requests:
+          storage: 2Gi
+
+  template:
+    metadata:
+      labels:
+        tier: database
+        component: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mysql
+        image: naveenrajoli/2025mysql:1.0.0
+        ports:
+        - containerPort: 3306
+
+        volumeMounts:
+        - name: mysql-pvc
+          mountPath: /var/lib/mysql
+
+        resources:
+          requests:
+            limit: # hard limit
+              cpu: "180m"
+              memory: "200Mi"
+            request:
+              cpu: "120m"
+              memory: "150Mi"
