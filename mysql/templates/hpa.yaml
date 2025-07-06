@@ -1,5 +1,5 @@
 apiVersion: v2
-kind: HorizontalAutoscaler
+kind: HorizontalPodAutoscaler
 metadata:
   name: mysql-hpa
   namespace: expense
