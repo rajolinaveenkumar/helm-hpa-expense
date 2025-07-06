@@ -42,9 +42,10 @@ spec:
           readOnly: true
 
         resources:
-          limits:
-            memory: "260Mi"
-            cpu: "200m"
           requests:
-            memory: "150Mi"
-            cpu: "160m"
+            memory: "68Mi"
+            cpu: "100m"
+          # hard limit
+          limits:
+            memory: "128Mi"
+            cpu: "150m"
