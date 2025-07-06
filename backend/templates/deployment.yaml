@@ -22,7 +22,7 @@ spec:
     spec:
       nodeSelector:
         topology.kubernetes.io/zone: us-east-1a
-      conatiner:
+      containers:
       - name: backend
         image: naveenrajoli/2025backend:{{ .Values.deployment.imageversion }}
         ports:
