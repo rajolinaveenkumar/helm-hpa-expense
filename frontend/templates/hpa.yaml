@@ -2,6 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: web-hpa
+  namespace: expense
   labels:
     tier: frontend
     component: web
