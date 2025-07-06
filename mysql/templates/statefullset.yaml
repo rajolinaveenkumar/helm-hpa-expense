@@ -11,14 +11,13 @@ spec:
   replicas: 2
   serviceName: mysql-headless # head leass service
   minReadySeconds: 10
-  nodeSelector:
-    topology.kubernetes.io/zone: {{ .Values.statefulset.region }}
+  
   selector:
     matchLabels:  
       tier: database
       component: mysql
    # Instead of creating a PVC resource, you can directly provide in statefulset
-  volumeclaimTemplates:
+  volumeClaimTemplates:
   - metadata:
       name: mysql-pvc
       accessModes: [ "ReadWriteOnce" ]
@@ -33,6 +32,8 @@ spec:
         tier: database
         component: mysql
     spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: {{ .Values.statefulset.region }}
       terminationGracePeriodSeconds: 10
       containers:
       - name: mysql
