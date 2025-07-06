@@ -1,0 +1,4 @@
+statefulset:
+  imageversion: 1.0.0
+  region: us-east-1b
+  storage: 2Gi
