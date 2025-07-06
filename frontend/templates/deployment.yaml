@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    project: expense
+    tier: frontend
+    component: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: frontend
+      component: web
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        component: web
+    spec:
+
+      volumes:
+      - name: nginx
+        configMap:
+          name: nginxconfigmap
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+
+
+      containers:
+      - name: frontend
+        image: naveenrajoli/2025frontend:{{ .Values.deployment.imageversion }}
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+        - name: nginx
+          mountPath: /etc/nginx/nginx.cong
+          subPath: nginx.conf
+          readOnly: true
+
+        resources:
+          limits:
+            memory: "260Mi"
+            cpu: "200m"
+          requests:
+            memory: "150Mi"
+            cpu: "160m"
