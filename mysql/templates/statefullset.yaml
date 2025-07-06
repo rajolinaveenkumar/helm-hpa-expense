@@ -45,10 +45,9 @@ spec:
           mountPath: /var/lib/mysql
 
         resources:
+          limits: # hard limit
+            cpu: "180m"
+            memory: "200Mi"
           requests:
-            limit: # hard limit
-              cpu: "180m"
-              memory: "200Mi"
-            request:
-              cpu: "120m"
-              memory: "150Mi"
+            cpu: "120m"
+            memory: "150Mi"
