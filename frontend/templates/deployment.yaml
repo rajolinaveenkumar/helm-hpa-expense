@@ -33,7 +33,7 @@ spec:
       - name: frontend
         image: naveenrajoli/2025frontend:{{ .Values.deployment.imageversion }}
         ports:
-        - containerPort: 80
+        - containerPort: 8079
 
         volumeMounts:
         - name: nginx
