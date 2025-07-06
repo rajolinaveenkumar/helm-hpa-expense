@@ -25,7 +25,7 @@ spec:
       storageClassName: mysql-sc 
       resources:
         requests:
-          storage: 2Gi
+          storage: {{ .Values.statefulset.storage }}
 
   template:
     metadata:
@@ -34,11 +34,11 @@ spec:
         component: mysql
     spec:
       nodeSelector:
-        topology.kubernetes.io/zone: us-east-1b
+        topology.kubernetes.io/zone: {{ .Values.statefulset.region }}
       terminationGracePeriodSeconds: 10
       containers:
       - name: mysql
-        image: naveenrajoli/2025mysql:1.0.0
+        image: naveenrajoli/2025mysql:{{ .Values.statefulset.imageversion }}
         ports:
         - containerPort: 3306
 
